@@ -18,7 +18,7 @@ app.use('/events', eventRoutes)
 //laufen bis hier hin und können abgefangen werden.
 app.use((req,res,next) => {
     const error = new Error('Not found');
-    error.status(404);
+    error.status = 404;
     next(error)
 })
 
