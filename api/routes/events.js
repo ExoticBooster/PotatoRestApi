@@ -7,27 +7,25 @@ const pool = new Pool({
     user: 'Tomato',
     host: 'localhost',
     database: 'Tomato',
-    password: 'Tomato',
+    password: 'Potato',
     port: '5432'
 })
 
 
 //hier kommen alle urls an die events enthalten.
 router.get('/', (req, res, next) => {
-    const resultMessage
-    const events = null
-    pool.query('SELECT * FROM Sitzung', (error, results) => {
-        if(error){
-            resultMessage = error
+    var resultMessage = null
+    var events = null
+    pool.query('SELECT * FROM "Sitzung"', (err, results) => {
+        if(err){
+            throw err
         }
         else{
-            resultMessage = "ok"
-            events = results
+            res.status(200).json({
+                resultMessage,
+                events
+             })
         }
-    })
-    res.status(200).json({
-       resultMessage,
-       events
     })
 })
 
