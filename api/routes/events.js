@@ -1,33 +1,30 @@
 const express = require('express')
 const router = express.Router();
 const Pool = require('pg').Pool
-
+ 
 //Connection Credentials
 const pool = new Pool({
-    user: 'Tomato',
+    user: 'tomato',
     host: 'localhost',
     database: 'Tomato',
-    password: 'Potato',
+    password: 'potato',
     port: '5432'
 })
 
-
 //hier kommen alle urls an die events enthalten.
 router.get('/', (req, res, next) => {
-    var resultMessage = null
-    var events = null
-    pool.query('SELECT * FROM "Sitzung"', (err, results) => {
-        if(err){
-            throw err
+    pool.query('SELECT * FROM public."Sitzung"', (error, results) => {
+        if(error){
+            //resultMessage = error
+			throw error
         }
         else{
-            res.status(200).json({
-                resultMessage,
-                events
-             })
+           res.status(200).json(results.rows)
         }
     })
 })
+
+
 
 router.post('/', (req, res, next) => {
     const event = {
