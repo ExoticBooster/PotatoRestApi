@@ -20,19 +20,22 @@ router.get('/', (req, res, next) => {
         }
         else{
            res.status(200).json(results.rows)
+           
         }
     })
 })
 
 //hier kommt gleich express syntax
 router.get('/:eventID', (req, res, next) => {
-    pool.query('SELECT * FROM public."Sitzung" WHERE ID = "'+eventID+'"', (error, results) => {
+    url = 'SELECT * FROM public."Sitzung" WHERE ID = "'+req.params.eventID+'"'
+    pool.query(url, (error, results) => {
         if(error){
             //resultMessage = error
 			throw error
         }
         else{
            res.status(200).json(results.rows)
+           console.log(url)
         }
     })
 })
