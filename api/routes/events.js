@@ -24,6 +24,18 @@ router.get('/', (req, res, next) => {
     })
 })
 
+//hier kommt gleich express syntax
+router.get('/:eventID', (req, res, next) => {
+    pool.query('SELECT * FROM public."Sitzung" WHERE ID = "'+eventID+'"', (error, results) => {
+        if(error){
+            //resultMessage = error
+			throw error
+        }
+        else{
+           res.status(200).json(results.rows)
+        }
+    })
+})
 
 
 router.post('/', (req, res, next) => {
@@ -38,20 +50,7 @@ router.post('/', (req, res, next) => {
     })
 })
 
-//hier kommt gleich express syntax
-router.get('/:eventID', (req, res, next) => {
-    const id = req.params.eventID
-    if( id == 1){
-        res.status(200).json({
-            message: 'Der Urknall',
-            id: id
-        })
-    } else{
-        res.status(200).json({
-            message: 'You passend an ID'
-        })
-    }
-})
+
 
 //Bereich zum ändern von Daten
 router.patch('/:eventID', (req, res, next) => {
