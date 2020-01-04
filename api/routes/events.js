@@ -13,7 +13,7 @@ const pool = new Pool({
 
 //hier kommen alle urls an die events enthalten.
 router.get('/', (req, res, next) => {
-    pool.query('SELECT * FROM public."Sitzung"', (error, results) => {
+    pool.query('SELECT * FROM public."Sitzung" ORDER BY "Sitzungsnummer"', (error, results) => {
         if(error){
             //resultMessage = error
 			throw error
