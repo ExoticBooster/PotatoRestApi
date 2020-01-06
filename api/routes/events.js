@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 
 //hier kommt gleich express syntax
 router.get('/:eventID', (req, res, next) => {
-    url = 'SELECT * FROM public."Sitzung" WHERE ID = "'+req.params.eventID+'"'
+    url = 'SELECT s."ID", "Sitzungsnummer", "Sitzungszeitpunkt", "Kommentar", b."Vorname" as Protokollfuehrer FROM public."Sitzung" as s INNER JOIN public."Benutzer" as b  ON s."Protokollfuehrer" = b."ID"  WHERE s."ID" = "'+req.params.eventID+'"'
     pool.query(url, (error, results) => {
         if(error){
             //resultMessage = error
